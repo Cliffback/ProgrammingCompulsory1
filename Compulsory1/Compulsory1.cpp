@@ -1,4 +1,5 @@
 #include <iostream>
+#include <conio.h>
 
 char Board[3][3]
 {
@@ -10,8 +11,14 @@ int input;
 int column;
 int row;
 char turn = 'X';
+bool draw = false;
 
+void Intro()
+{
+	std::cout << "\n\n\t\t  TICK TACK TOE\n";
+	std::cout << "\t\t  for 2 players\n";
 
+}
 
 void DisplayBoard()
 {
@@ -98,12 +105,16 @@ void PlayerTurn()
 	}
 	else if (turn == 'O' && Board[row][column] != 'X' && Board[row][column] != 'O')
 	{
-		Board[row][column] = 'C';
+		Board[row][column] = 'O';
 		turn = 'X';
 	}
 	else
 	{
-		std::cout << "Box is already taken. Choose another!\n\n";
+		std::cout << "\n\tBox is already taken. Choose another!\n\n";
+		char something = _getch();
+		system("CLS");
+		Intro();
+		DisplayBoard();
 		PlayerTurn();
 	}
 	DisplayBoard();
@@ -113,19 +124,74 @@ bool gamover()
 {
 	for (int i = 0; i < 3; i++)
 	{
+		if (Board[i][0] == Board[i][1] && Board[i][0] == Board[i][2] || Board[0][i] == Board[1][i] && Board [0][i] == Board[2][i])
+		{
+			return false;
+		}
+
 
 
 	}
+	if (Board[0][0] == Board[1][1] && Board[0][0] == Board[2][2] || Board[0][2] == Board[1][1] && Board[0][2] == Board[2][0])
+	{
+		return false;
+	}
+
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 3; j++)
+		{
+			if (Board[i][j] != 'X' && Board[i][j] != 'O')
+			{
+				return true;
+			}
+		}
+	draw = true;
+	return false;
+	
 }
 
 int main()
 {
-	while ()
+	while (gamover())
 	{
-		std::cout << "\n\n\t\t\tTICK TACK TOE";
-	DisplayBoard();
-	PlayerTurn();
+		system("CLS");
+		Intro();
+		DisplayBoard();
+		PlayerTurn();
 	}
+	if (turn == 'X' && draw == false)
+	{
+		system("CLS");
+		Intro();
+		DisplayBoard();
+		std::cout << "\n    Congratulations! Player 1 has won the game!\n";
+		std::cout << "\n\t       Press a key to exit: ";
+		char something = _getch();
+	}
+
+	else if (turn == 'O' && draw == false)
+	{
+		system("CLS");
+		Intro();
+		DisplayBoard();
+		std::cout << "\n    Congratulations! Player 2 has won the game!\n";
+		std::cout << "\n\t       Press a key to exit: ";
+		char something = _getch();
+	}
+	else
+	{
+		system("CLS");
+		Intro();
+		DisplayBoard();
+		std::cout << "\n\t           It's a draw!\n";
+		std::cout << "\n\t       Press a key to exit: ";
+		char something = _getch();
+
+
+
+	}
+
+
 
 
 	return 0;
