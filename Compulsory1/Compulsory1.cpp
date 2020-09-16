@@ -1,18 +1,22 @@
 #include <iostream>
 #include <conio.h>
 
+// Array for making a board
 char Board[3][3]
 {
 	{'1','2','3'},
 	{'4','5','6'},
 	{'7','8','9'}
 };
-int input;
-int column;
+
+// Declaring variables to be used
+int input; // For storing the players choice
+int column; // Input shall go into the correct column and correct row
 int row;
 char turn = 'X';
 bool draw = false;
 
+// Function for writing the intro
 void Intro()
 {
 	std::cout << "\n\n\t\t  TICK TACK TOE\n";
@@ -20,6 +24,7 @@ void Intro()
 
 }
 
+// Function for displaying the board, using the board array
 void DisplayBoard()
 {
 	std::cout << "\n";
@@ -35,6 +40,7 @@ void DisplayBoard()
 	std::cout << "\t\t     |     |     " << "\n";
 }
 
+// Function for inputing choices
 void PlayerTurn()
 {
 	if (turn == 'X')
@@ -46,6 +52,8 @@ void PlayerTurn()
 		std::cout << "\n\t       Player 2 [O] turn: ";
 	}
 
+
+	// For sending the input to the correct row and column
 	std::cin >> input;
 	switch (input)
 	{
@@ -98,6 +106,7 @@ void PlayerTurn()
 		std::cout << "Invalid move! Please try again!";
 	}
 
+	// Inserting row and column into the corresponding spot on the board. Also checks if it's not already chosen.
 	if (turn == 'X' && Board[row][column] != 'X' && Board[row][column] != 'O')
 	{
 		Board[row][column] = 'X';
@@ -120,6 +129,7 @@ void PlayerTurn()
 	DisplayBoard();
 }
 
+// Checking if either player has won
 bool gamover()
 {
 	for (int i = 0; i < 3; i++)
@@ -152,6 +162,7 @@ bool gamover()
 
 int main()
 {
+	// A loop that runs until one of the players has won, or if draw
 	while (gamover())
 	{
 		system("CLS");
